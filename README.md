@@ -23,17 +23,17 @@ This is currently a work in progress, this is NON-FUNCTIONAL as of July 29, 2025
 
 ```plaintext
 AetherSec/
-├── CLI/                                # Core scanning and simulation engine
+├── CLI/                                # Core
 │   └── Program.cs
-├── Agent/
+├── Agent/                              # Carrier logic
 │   ├── IAgent.cs
 │   ├── AgentCore.cs
-│   └── Propagation/                    # Propagation modules, binaries, remote logic
+│   └── Propagation/                    # Propagation logic
 │   |   ├── PropagationAgent.cs
 │   |   ├── ProagationConfig.cs
 │   |   ├── PropagationController.cs
 │   |   └── PropagationServices.cs
-├── Core/                               # Shared helpers and utilities
+├── Core/                               
 │   └── IScanModule.cs
 ├── Config/
 ├── Engine/
@@ -44,9 +44,9 @@ AetherSec/
 ├── Modules/
 │   └── FtpAnonymousScan.cs
 ├── Tests/
-├── README.md                # This file
+├── README.md                            # This file
 ├── LICENSE.txt
-└── AetherSec.sln            # Solution file
+└── AetherSec.sln                        # Solution file
 ```
 
 ---
