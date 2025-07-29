@@ -94,14 +94,14 @@ Contributions are welcome! Clone the repo, add a new exploit module (With a desc
 ## ⚠️ Disclaimer
 
 This project is strictly for **educational and ethical purposes**. Unauthorized use on networks you do not own or have permission to test **is illegal**. Use responsibly.
+The author (n0m4official) is not and cannot be held responsible for how individuals use this project.
 
 ---
 
 ## 🧙‍♂️ Maintainer
 
-**Mathew "NØM4" Dixon**  
-Founder of AetherSec  
-Developer, musician, cybersecurity student.
+**n0m4official**  
+Creator of AetherSec  
 
 ---
 
