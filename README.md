@@ -99,7 +99,7 @@ Use responsibly.
 
 The author (**n0m4official**) is **not and cannot be held responsible** for how individuals use this project.
 
-This software is provided 'as is' without any warranties, and by using this code, you agree to take full responsibility for any actions performed using it
+This software is provided 'as is' without any warranties, and by using this code, you agree to take full responsibility for any actions performed using it.
 
 ---
 
