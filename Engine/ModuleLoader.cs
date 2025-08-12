@@ -19,7 +19,6 @@ namespace AetherSec.Modules
 					modules.Add(module);
 				}
 			}
-
 			return modules;
 		}
 	}

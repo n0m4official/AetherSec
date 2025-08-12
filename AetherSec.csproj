@@ -18,4 +18,8 @@
     <Folder Include="Tests\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Net.FtpClient" Version="1.0.5824.34026" />
+  </ItemGroup>
+
 </Project>

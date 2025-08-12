@@ -1,0 +1,81 @@
+﻿using System;
+using System.Net.Http;
+using System.Net.Sockets;
+using System.Threading.Tasks;
+using AetherSec.Core;
+
+namespace AetherSec.Modules
+{
+	public class EternalBlueDetector : IScanModule
+	{
+		public string Name => "EternalBlue SMB Vulnerability Detector";
+		public string Description => "Detects if the target is vulnerable to the EternalBlue (CVE-2017-0144) SMB vulnerability.";
+		public ScanSeverity Severity => ScanSeverity.Critical;
+
+		public async Task<ScanResult> RunAsync(string targetIp)
+		{
+			try
+			{
+				using TcpClient client = new TcpClient();
+				client.SendTimeout = 3000;
+				client.ReceiveTimeout = 3000;
+				await client.ConnectAsync(targetIp, 445);
+
+				using var stream = client.GetStream();
+				byte[] probePacket = new byte[]
+				{
+					0x00, 0x00, 0x00, 0x85, 0xff, 0x53, 0x4d, 0x42,
+					0x72, 0x00, 0x00, 0x00, 0x00, 0x18, 0x53, 0xc8,
+					0x00, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x62, 0x00, 0x02,
+					0x50, 0x43, 0x20, 0x4e, 0x45, 0x54, 0x57, 0x4f,
+					0x52, 0x4b, 0x20, 0x50, 0x52, 0x4f, 0x47, 0x52,
+					0x41, 0x4d, 0x20, 0x31, 0x2e, 0x30, 0x00, 0x02,
+					0x4d, 0x49, 0x43, 0x52, 0x4f, 0x53, 0x4f, 0x46,
+					0x54, 0x20, 0x4e, 0x45, 0x54, 0x57, 0x4f, 0x52,
+					0x4b, 0x53, 0x20, 0x31, 0x2e, 0x30, 0x00, 0x02,
+					0x4c, 0x41, 0x4e, 0x4d, 0x41, 0x4e, 0x31, 0x2e,
+					0x30, 0x00, 0x02, 0x57, 0x69, 0x6e, 0x64, 0x6f,
+					0x77, 0x73, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x57,
+					0x6f, 0x72, 0x6b, 0x67, 0x72, 0x6f, 0x75, 0x70,
+					0x73, 0x20, 0x33, 0x2e, 0x31, 0x00
+				};
+
+				await stream.WriteAsync(probePacket, 0, probePacket.Length);
+
+				byte[] response = new byte[256];
+				int bytesRead = await stream.ReadAsync(response, 0, response.Length);
+
+				if (bytesRead > 0 && response[4] == 0xFF && response[5] == 0x53)
+				{
+					return new ScanResult(
+						true,
+						"SMBv1 is enabled — target may be vulnerable to EternalBlue.",
+						targetIp,
+						AffectedService: "SMB",
+						Recommendation: "Apply the latest security patches from Microsoft immediately.",
+						Severity: ScanSeverity.Critical,
+						Vulnerability: "MS17-010"
+					);
+				}
+				else
+				{
+					return new ScanResult(
+						false,
+						"SMBv1 not detected or target not vulnerable.",
+						targetIp
+					);
+				}
+			}
+			catch (Exception ex)
+			{
+				return new ScanResult(
+					false, 
+					$"Error: {ex.Message}", 
+					targetIp
+				);
+			}
+		}
+	}
+}
