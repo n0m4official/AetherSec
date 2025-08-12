@@ -52,8 +52,6 @@ namespace AetherSec.Agent.Propagation
 			Console.WriteLine($"[*] Attempting SMB file drop to {targetIp}...");
 
 			// TODO: Implement real SMB file drop logic
-			// Options:
-			// - Map network drive with credentials
 			// - Copy agentBinaryPath to \\{targetIp}\C$\ProgramData\AetherSec\agent.exe
 
 			await Task.Delay(100); // Simulate for now

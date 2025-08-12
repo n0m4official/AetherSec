@@ -23,17 +23,17 @@ This is currently a work in progress, this is NON-FUNCTIONAL as of July 29, 2025
 
 ```plaintext
 AetherSec/
-├── CLI/                                # Core scanning and simulation engine
+├── CLI/                                # Core
 │   └── Program.cs
-├── Agent/
+├── Agent/                              # Carrier logic
 │   ├── IAgent.cs
 │   ├── AgentCore.cs
-│   └── Propagation/                    # Propagation modules, binaries, remote logic
+│   └── Propagation/                    # Propagation logic
 │   |   ├── PropagationAgent.cs
 │   |   ├── ProagationConfig.cs
 │   |   ├── PropagationController.cs
 │   |   └── PropagationServices.cs
-├── Core/                               # Shared helpers and utilities
+├── Core/                               
 │   └── IScanModule.cs
 ├── Config/
 ├── Engine/
@@ -44,9 +44,9 @@ AetherSec/
 ├── Modules/
 │   └── FtpAnonymousScan.cs
 ├── Tests/
-├── README.md                # This file
+├── README.md                            # This file
 ├── LICENSE.txt
-└── AetherSec.sln            # Solution file
+└── AetherSec.sln                        # Solution file
 ```
 
 ---
@@ -93,15 +93,20 @@ Contributions are welcome! Clone the repo, add a new exploit module (With a desc
 
 ## ⚠️ Disclaimer
 
-This project is strictly for **educational and ethical purposes**. Unauthorized use on networks you do not own or have permission to test **is illegal**. Use responsibly.
+This project is strictly for educational and ethical purposes.  
+Unauthorized use on networks you do not own or have permission to test is **illegal**.  
+Use responsibly.  
+
+The author (**n0m4official**) is **not and cannot be held responsible** for how individuals use this project.
+
+This software is provided 'as is' without any warranties, and by using this code, you agree to take full responsibility for any actions performed using it.
 
 ---
 
 ## 🧙‍♂️ Maintainer
 
-**Mathew "NØM4" Dixon**  
-Founder of AetherSec  
-Developer, musician, cybersecurity student.
+**n0m4official**  
+Creator of AetherSec  
 
 ---
 
