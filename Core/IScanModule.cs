@@ -11,7 +11,7 @@ namespace AetherSec.Core
 		string Name { get; }
 		string Description { get; }
 		ScanSeverity Severity { get; }
-		ScanResult Run(string targetIp);
+		Task<ScanResult> RunAsync(string targetIp);
 	}
 
 	public enum ScanSeverity
