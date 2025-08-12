@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AetherSec.Engine;
 using System.Threading.Tasks;
-using AetherSec.Core;
+using AetherSec.Engine;
 
 namespace AetherSec.CLI
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static async Task Main(string[] args)
 		{
 			Console.Title = "AetherSec - Ethical Network Vulnerability Scanner";
 
@@ -19,7 +15,10 @@ namespace AetherSec.CLI
 			var target = Console.ReadLine();
 
 			var engine = new ScanEngine();
-			engine.RunScan(target);
+			await engine.RunScanAsync(target);
+
+			Console.WriteLine("Scan complete. Press any key to exit.");
+			Console.ReadKey();
 		}
 	}
 }

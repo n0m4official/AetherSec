@@ -13,12 +13,12 @@ namespace AetherSec.Engine
 			_modules = ModuleLoader.LoadAllModules();
 		}
 
-		public void RunScan(string targetIp)
+		public async Task RunScanAsync(string targetIp)
 		{
 			Console.WriteLine($"\nScanning: {targetIp}\n");
 			foreach (var module in _modules)
 			{
-				var result = module.Run(targetIp);
+				var result = await module.RunAsync(targetIp);
 				ReportLogger.Log(result, module);
 			}
 		}
