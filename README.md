@@ -6,7 +6,7 @@
 > “We get our hands dirty so others stay clean.”
 
 NOTE:
-This is currently a work in progress, this is NON-FUNCTIONAL as of July 29, 2025.
+This is currently a work in progress, this is still in active development and may have bugs or security exploits, use at own risk.
 
 ---
 
