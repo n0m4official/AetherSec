@@ -1,39 +1,64 @@
-﻿using AetherSec.Agent.Propagation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AetherSec.Agent.Propagation
 {
-	public class PropagationController
-	{
-		private readonly PropagationConfig config;
-		private readonly PropagationService service;
+    public class PropagationController
+    {
+        private readonly PropagationConfig config;
+        private readonly PropagationService service;
+        private readonly SemaphoreSlim semaphore;
 
-		public PropagationController(PropagationConfig config, PropagationService service)
-		{
-			this.config = config;
-			this.service = service;
-		}
+        public PropagationController(PropagationConfig config, PropagationService service)
+        {
+            this.config = config;
+            this.service = service;
+            this.semaphore = new SemaphoreSlim(config.MaxConcurrentPropagations);
+        }
 
-		public async Task RunPropagationAsync(IEnumerable<string> discoveredHosts, string username, string password)
-		{
-			var tasks = new List<Task>();
+        public async Task RunPropagationAsync(List<string> targetHosts, string username = "", string password = "")
+        {
+            if (!config.EnablePropagation)
+            {
+                Console.WriteLine("[!] Propagation is disabled in config.");
+                return;
+            }
 
-			foreach (var host in discoveredHosts)
-			{
-				if (!config.IsHostAllowed(host))
-				{
-					Console.WriteLine($"[-] Skipping {host} - not allowed by config.");
-					continue;
-				}
+            var tasks = new List<Task>();
 
-				if (tasks.Count >= config.MaxConcurrentPropagations)
-				{
-					break;
-				}
+            foreach (var host in targetHosts)
+            {
+                // Skip hosts not allowed by whitelist/blacklist
+                if (!config.IsHostAllowed(host))
+                {
+                    Console.WriteLine($"[-] Skipping {host} (not allowed by config).");
+                    continue;
+                }
 
-				tasks.Add(service.AttemptPropagationAsync(host, username, password));
-			}
+                await semaphore.WaitAsync();
 
-			await Task.WhenAll(tasks);
-		}
-	}
+                tasks.Add(Task.Run(async () =>
+                {
+                    try
+                    {
+                        bool success = await service.AttemptPropagationAsync(host, username, password);
+                        if (success)
+                        {
+                            Console.WriteLine($"[+] Propagation succeeded: {host}");
+                        }
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
+                }));
+            }
+
+            await Task.WhenAll(tasks);
+            Console.WriteLine("[*] Propagation run complete.");
+        }
+    }
 }
