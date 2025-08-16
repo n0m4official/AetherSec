@@ -23,30 +23,51 @@ This is currently a work in progress, this is still in active development and ma
 
 ```plaintext
 AetherSec/
-├── CLI/                                # Core
-│   └── Program.cs
 ├── Agent/                              # Carrier logic
 │   ├── IAgent.cs
 │   ├── AgentCore.cs
-│   └── Propagation/                    # Propagation logic
+│   ├── Propagation/                    # Propagation logic
 │   |   ├── PropagationAgent.cs
 │   |   ├── ProagationConfig.cs
 │   |   ├── PropagationController.cs
 │   |   └── PropagationServices.cs
+├── CLI/                                # Core
+│   └── Program.cs
 ├── Core/                               
 │   └── IScanModule.cs
-├── Config/
 ├── Engine/
 │   ├── ModuleLoader.cs
 │   └── ScanEngine.cs
 ├── Logging/
 │   └── ReportLogger.cs
 ├── Modules/
-│   └── FtpAnonymousScan.cs
-├── Tests/
-├── README.md                            # This file
+│   ├── ApacheStrutsCVE20175638Exploit.cs
+│   ├── BlueKeepDetector.cs
+│   ├── ClickJackingScan.cs
+│   ├── CloudMetadataExposureScan.cs
+│   ├── CmsFingerprinterScan.cs
+│   ├── CmsPluginEnumeratorScan.cs
+│   ├── ConfluenceOnglInjectionScan.cs
+│   ├── DirectoryTraversalDetector.cs
+│   ├── DnsRecursionDetector.cs
+│   ├── ElasticsearchCVE20151427RceDetector.cs
+│   ├── ElasticsearchExposureDetector.cs
+│   ├── EternalBlueDetector.cs
+│   ├── FtpAnonymousLoginDetector.cs
+│   ├── FtpAnonymousScan.cs
+│   ├── HeartbleedDetector.cs
+│   ├── HoneypotDetector.cs
+│   ├── HttpsServerBannerDetector.cs
+│   ├── JenkinsPanelExploit.cs
+│   ├── JwtWeakSecretBruteForce.ce
+│   ├── KubernetesApiExposureDetector.cs
+│   └── KubernetesDashboardUnauthAccessDetector.cs
+├── .gitattributes
+├── .gitignore
+├── AetherSec.csproj
+├── AetherSec.sln
 ├── LICENSE.txt
-└── AetherSec.sln                        # Solution file
+└── README.md
 ```
 
 ---
