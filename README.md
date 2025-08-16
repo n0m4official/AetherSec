@@ -83,7 +83,9 @@ AetherSec/
   - Network vulnerabilities: EternalBlue, BlueKeep, SMB checks  
   - Web vulnerabilities: Apache Struts, ClickJacking, Elasticsearch RCE, Log4Shell simulations  
   - Service exposures: MongoDB, Kubernetes, FTP, HTTP servers  
-  - Security misconfigurations: Cloud metadata, Honeypots, JWT weak secrets  
+  - Security misconfigurations: Cloud metadata, Honeypots, JWT weak secrets
+
+See `README_MODULES.md` for more info on specifics.
 
 ---
 
@@ -148,5 +150,4 @@ Creator of AetherSec
 
 ## 📜 License
 
-MIT License — See `LICENSE` file for details.
-EOF
+MIT License — See `LICENSE.txt` for details.
