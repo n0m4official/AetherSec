@@ -64,11 +64,11 @@ AetherSec/
 │   └── KubernetesDashboardUnauthAccessDetector.cs
 ├── .gitattributes
 ├── .gitignore
-├── AetherSec.csproj
-├── AetherSec.sln
-├── LICENSE.txt
-├── README.md
-└── README_MODULES.md
+├── AetherSec.csproj                               # Project
+├── AetherSec.sln                                  # Solution
+├── LICENSE.txt                                    # License
+├── README.md                                      # This file
+└── README_MODULES.md                              # Modules explanations
 ```
 ---
 
