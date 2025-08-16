@@ -23,24 +23,24 @@ This is currently a work in progress, this is still in active development and ma
 
 ```plaintext
 AetherSec/
-├── Agent/                              # Carrier logic
-│   ├── IAgent.cs
-│   ├── AgentCore.cs
-│   ├── Propagation/                    # Propagation logic
-│   |   ├── PropagationAgent.cs
-│   |   ├── ProagationConfig.cs
-│   |   ├── PropagationController.cs
-│   |   └── PropagationServices.cs
-├── CLI/                                # Core
-│   └── Program.cs
-├── Core/                               
-│   └── IScanModule.cs
-├── Engine/
-│   ├── ModuleLoader.cs
-│   └── ScanEngine.cs
-├── Logging/
-│   └── ReportLogger.cs
-├── Modules/
+├── Agent/                                        # Carrier and agent logic
+│   ├── IAgent.cs                                 # Interface for agent functionality
+│   ├── AgentCore.cs                              # Core agent functionality
+│   ├── Propagation/                              # Propagation logic
+│   |   ├── PropagationAgent.cs                   # Main propagation agent
+│   |   ├── PropagationConfig.cs                  # Config options for propagation
+│   |   ├── PropagationController.cs              # Controls propagation flow
+│   |   └── PropagationServices.cs                # Handles file drop & remote execution
+├── CLI/                                          # Command-line interface
+│   └── Program.cs                                # Entry point for CLI
+├── Core/                                         # Core scanning interfaces
+│   └── IScanModule.cs                            # Interface for scan modules
+├── Engine/                                       # Scanning engine & module loader
+│   ├── ModuleLoader.cs                           # Dynamically loads modules
+│   └── ScanEngine.cs                             # Orchestrates scan execution
+├── Logging/                                      # Reporting and logging
+│   └── ReportLogger.cs                           # Handles scan results and logs
+├── Modules/                                      # Individual scan/exploit modules
 │   ├── ApacheStrutsCVE20175638Exploit.cs
 │   ├── BlueKeepDetector.cs
 │   ├── ClickJackingScan.cs
@@ -59,7 +59,7 @@ AetherSec/
 │   ├── HoneypotDetector.cs
 │   ├── HttpsServerBannerDetector.cs
 │   ├── JenkinsPanelExploit.cs
-│   ├── JwtWeakSecretBruteForce.ce
+│   ├── JwtWeakSecretBruteForce.cs
 │   ├── KubernetesApiExposureDetector.cs
 │   └── KubernetesDashboardUnauthAccessDetector.cs
 ├── .gitattributes
@@ -67,8 +67,23 @@ AetherSec/
 ├── AetherSec.csproj
 ├── AetherSec.sln
 ├── LICENSE.txt
+├── README_MODULES.md
 └── README.md
 ```
+---
+
+## Modules Overview
+
+- **Agent** – Handles agent lifecycle, propagation logic, and communication.  
+- **CLI** – Command-line interface to start scans, configure modules, and report results.  
+- **Core** – Interfaces for scan modules, ensuring consistent structure.  
+- **Engine** – Loads modules dynamically and executes scans in a controlled manner.  
+- **Logging** – Reports and logs scan results for auditing and review.  
+- **Modules** – Individual vulnerability/exploit detection implementations, including:  
+  - Network vulnerabilities: EternalBlue, BlueKeep, SMB checks  
+  - Web vulnerabilities: Apache Struts, ClickJacking, Elasticsearch RCE, Log4Shell simulations  
+  - Service exposures: MongoDB, Kubernetes, FTP, HTTP servers  
+  - Security misconfigurations: Cloud metadata, Honeypots, JWT weak secrets  
 
 ---
 
