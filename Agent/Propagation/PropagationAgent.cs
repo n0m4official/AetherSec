@@ -8,7 +8,7 @@ namespace AetherSec.Agent.Propagation
     public class PropagationAgent : IAgent
     {
         public string HostId { get; private set; } = Guid.NewGuid().ToString();
-        public string CurrentIp { get; private set; }
+        public string CurrentIp { get; private set; } // Remove nullable to match IAgent
 
         private readonly PropagationController controller;
 
@@ -23,7 +23,8 @@ namespace AetherSec.Agent.Propagation
                 SelfDeleteOnRestart = true
             };
 
-            var service = new PropagationService(); // Your async simulation service
+            string agentBinaryPath = ""; // Provide the correct path if available
+            var service = new PropagationService(config, agentBinaryPath);
             controller = new PropagationController(config, service);
         }
 
@@ -37,6 +38,12 @@ namespace AetherSec.Agent.Propagation
         public async Task ScanAndPropagateAsync()
         {
             Console.WriteLine("[*] Scanning local subnet...");
+
+            if (string.IsNullOrEmpty(CurrentIp))
+            {
+                Console.WriteLine("[!] CurrentIp is null or empty. Skipping host discovery.");
+                return;
+            }
 
             var discoveredHosts = DiscoverLocalHosts(CurrentIp);
             Console.WriteLine($"[*] Found {discoveredHosts.Count} potential hosts.");

@@ -92,21 +92,27 @@ namespace AetherSec.Agent
 			}
 		}
 	}
-	public static class SelfDestruct
-	{
-		public static void Setup()
-		{
-			string exePath = Process.GetCurrentProcess().MainModule.FileName;
-			string script = $"cmd /c timeout 10 && del \"{exePath}\"";
+    public static class SelfDestruct
+    {
+        public static void Setup()
+        {
+            string? processPath = Environment.ProcessPath;
+            if (string.IsNullOrEmpty(processPath))
+            {
+                Console.WriteLine("[SelfDestruct] Unable to determine process path. Self-destruct aborted.");
+                return;
+            }
+            string exePath = processPath;
+            string script = $"cmd /c timeout 10 && del \"{exePath}\"";
 
-			Process.Start(new ProcessStartInfo
-			{
-				FileName = "cmd.exe",
-				Arguments = $"/C start /min {script}",
-				WindowStyle = ProcessWindowStyle.Hidden
-			});
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/C start /min {script}",
+                WindowStyle = ProcessWindowStyle.Hidden
+            });
 
-			Console.WriteLine("[SelfDestruct] Scheduled deletion on reboot.");
-		}
-	}
+            Console.WriteLine("[SelfDestruct] Scheduled deletion on reboot.");
+        }
+    }
 }
