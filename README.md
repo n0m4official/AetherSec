@@ -65,6 +65,7 @@ AetherSec/
 ├── .gitattributes
 ├── .gitignore
 ├── AetherSec.csproj                               # Project
+├── AetherSec.exe                                  # Application
 ├── AetherSec.sln                                  # Solution
 ├── LICENSE.txt                                    # License
 ├── README.md                                      # This file
